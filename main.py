@@ -75,7 +75,15 @@ class TestUrbanRoutes:
 
 
     def test_order_blanket_and_handkerchiefs(self):
-        pass
+        self.driver.get(data.URBAN_ROUTES_URL)
+        routes_page = UrbanRoutesPage(self.driver)
+        routes_page.enter_locations(data.ADDRESS_FROM, data.ADDRESS_TO)
+        routes_page.click_taxi_option()
+        routes_page.click_comfort_icon()
+        routes_page.switch_blanket_ok()
+        assert routes_page.switch_blanket_true() is True
+        time.sleep(10)
+
 
 
     def test_order_2_ice_creams(self):

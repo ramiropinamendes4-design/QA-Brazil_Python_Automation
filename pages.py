@@ -36,6 +36,11 @@ class UrbanRoutesPage:
     # Adicionar comentario
     add_comment = (By.ID, 'comment')
 
+    # Pedir lenções e cobertor
+    switch_blanket = (By.CSS_SELECTOR, '.switch')
+    switch_blanket_active = (By.CSS_SELECTOR,
+                             '#root > div > div.workflow > div.workflow-subcontainer > div.tariff-picker.shown > div.form > div.reqs.open > div.reqs-body > div:nth-child(1) > div > div.r-sw > div > input')
+
 
 
     def __init__(self, driver):
@@ -111,6 +116,14 @@ class UrbanRoutesPage:
 
     def comment_confirm(self):
         return self.driver.find_element(*self.add_comment).get_attribute('value')
+
+    def switch_blanket_ok(self):
+        switch_active = self.driver.find_element(*self.switch_blanket)
+        switch_active.click()
+
+    def switch_blanket_true(self):
+        switch_active = self.driver.find_element(*self.switch_blanket_active)
+        return switch_active.is_selected()
 
 
 
