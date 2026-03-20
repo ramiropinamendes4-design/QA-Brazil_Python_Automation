@@ -34,32 +34,44 @@ class TestUrbanRoutes:
     def test_select_plan(self):
         self.driver.get(data.URBAN_ROUTES_URL)
         routes_page = UrbanRoutesPage(self.driver)
-        routes_page.enter_location(data.ADDRESS_FROM, data.ADDRESS_TO)
+        routes_page.enter_locations(data.ADDRESS_FROM, data.ADDRESS_TO)
         routes_page.click_taxi_option()
         routes_page.click_comfort_icon()
-        assert routes_page.click_comfort_ative()
+        assert routes_page.click_comfort_active()
+        time.sleep(10)
 
 
     def test_fill_phone_number(self):
         self.driver.get(data.URBAN_ROUTES_URL)
         routes_page = UrbanRoutesPage(self.driver)
-        routes_page.enter_location(data.ADDRESS_FROM, data.ADDRESS_TO)
+        routes_page.enter_locations(data.ADDRESS_FROM, data.ADDRESS_TO)
         routes_page.click_taxi_option()
         routes_page.click_comfort_icon()
         routes_page.click_number_text(data.PHONE_NUMBER)
-        assert data.PHONE_NUMBER in routes_page.numero_confirmado()
-
+        assert data.PHONE_NUMBER in routes_page.click_number_confirm()
+        time.sleep(10)
 
     def test_fill_card(self):
         self.driver.get(data.URBAN_ROUTES_URL)
         routes_page = UrbanRoutesPage(self.driver)
-
-
+        routes_page.enter_locations(data.ADDRESS_FROM, data.ADDRESS_TO)
+        routes_page.click_taxi_option()
+        routes_page.click_comfort_icon()
+        routes_page.click_add_card(data.CARD_NUMBER, data.CARD_CODE)
+        assert "Cartão" in routes_page.confirm_card_ok()
+        time.sleep(10)
 
 
 
     def test_comment_for_driver(self):
-        pass
+        self.driver.get(data.URBAN_ROUTES_URL)
+        routes_page = UrbanRoutesPage(self.driver)
+        routes_page.enter_locations(data.ADDRESS_FROM, data.ADDRESS_TO)
+        routes_page.click_taxi_option()
+        routes_page.click_comfort_icon()
+        routes_page.add_comment_ok(data.MESSAGE_FOR_DRIVER)
+        assert data.MESSAGE_FOR_DRIVER in routes_page.comment_confirm()
+        time.sleep(10)
 
 
     def test_order_blanket_and_handkerchiefs(self):
