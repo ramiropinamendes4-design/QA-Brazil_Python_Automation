@@ -41,7 +41,13 @@ class UrbanRoutesPage:
     switch_blanket_active = (By.CSS_SELECTOR,
                              '#root > div > div.workflow > div.workflow-subcontainer > div.tariff-picker.shown > div.form > div.reqs.open > div.reqs-body > div:nth-child(1) > div > div.r-sw > div > input')
 
+    # Pedir Sorvete
+    add_icecream = (By.CSS_SELECTOR, '.counter-plus')
+    qnt_icecream = (By.CSS_SELECTOR, '.counter-value')
 
+    # pedir um taxi
+    call_taxi_button = (By.CSS_SELECTOR, '.smart-button')
+    pop_up = (By.CSS_SELECTOR, '.order-header-title')
 
     def __init__(self, driver):
         self.driver = driver
@@ -124,6 +130,21 @@ class UrbanRoutesPage:
     def switch_blanket_true(self):
         switch_active = self.driver.find_element(*self.switch_blanket_active)
         return switch_active.is_selected()
+
+    def add_ice(self):
+        self.driver.find_element(*self.add_icecream).click()
+
+    def qnt_ice(self):
+        return self.driver.find_element(*self.qnt_icecream).text
+
+    def call_taxi(self):
+        self.driver.find_element(*self.call_taxi_button).click()
+
+    def popup_show(self):
+        pop_up = WebDriverWait(self.driver, 10).until(
+           EC.presence_of_element_located(self.pop_up))
+        return pop_up.text
+
 
 
 
